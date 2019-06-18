@@ -291,13 +291,13 @@ void MidV2(const std::string inputDir, const std::string outputDir, const Option
         std::filesystem::create_directory((outputDir + "debug").c_str());
 		/* _mkdir((outputDir + "debug").c_str()); */
 
-		Evaluator *eval = new Evaluator(dispGT, nonocc, 255.0f / (maxdisp), "result", outputDir + "debug\\");
+		Evaluator *eval = new Evaluator(dispGT, nonocc, 255.0f / (maxdisp), "result", outputDir + "debug/");
 		eval->setPrecision(calib.gt_prec);
 		eval->showProgress = false;
 		eval->setErrorThreshold(errorThresh);
 
 		FastGCStereo stereo(imL, imR, param, maxdisp, 0, vdisp);
-		stereo.saveDir = outputDir + "debug\\";
+		stereo.saveDir = outputDir + "debug/";
 		stereo.setEvaluator(eval);
 
 		IProposer* prop1 = new ExpansionProposer(1);
@@ -381,14 +381,14 @@ void MidV3(const std::string inputDir, const std::string outputDir, const Option
         std::filesystem::create_directory((outputDir + "debug").c_str());
 		/* _mkdir((outputDir + "debug").c_str()); */
 
-		Evaluator *eval = new Evaluator(dispGT, nonocc, 255.0f / (maxdisp), "result", outputDir + "debug\\");
+		Evaluator *eval = new Evaluator(dispGT, nonocc, 255.0f / (maxdisp), "result", outputDir + "debug/");
 		eval->setPrecision(-1);
 		eval->showProgress = false;
 		eval->setErrorThreshold(errorThresh);
 
 		FastGCStereo stereo(imL, imR, param, maxdisp);
 		stereo.setStereoEnergyCPU(std::make_unique<CostVolumeEnergy>(imL, imR, volL, volR, param, maxdisp));
-		stereo.saveDir = outputDir + "debug\\";
+		stereo.saveDir = outputDir + "debug/";
 		stereo.setEvaluator(eval);
 
 		int w = imL.cols;

@@ -160,10 +160,10 @@ public:
 		}
 
 		if (saveProgress && save){
-			cv::imwrite(saveDir + cv::format("%s%dD%02d.png", header, mode, index), disparityMapVis * 255);
-			//cv::imwrite(saveDir + cv::format("%s%dV%02d.png", header, mode, index), vdispMapVis * 255);
-			cv::imwrite(saveDir + cv::format("%s%dN%02d.png", header, mode, index), normalMapVis * 255);
-			cv::imwrite(saveDir + cv::format("%s%dE%02d.png", header, mode, index), errorMapVis);
+			cv::imwrite(saveDir + header + cv::format("%dD%02d.png", mode, index), disparityMapVis * 255);
+			//cv::imwrite(saveDir + header + cv::format("%dV%02d.png", mode, index), vdispMapVis * 255);
+			cv::imwrite(saveDir + header + cv::format("%dN%02d.png", mode, index), normalMapVis * 255);
+			cv::imwrite(saveDir + header + cv::format("%dE%02d.png", mode, index), errorMapVis);
 
 			if (fp_output != nullptr && mode == 0)
 			{
