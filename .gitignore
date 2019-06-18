@@ -18,3 +18,4 @@ data/MiddV3/trainingH/Vintage
 *.log
 *.exe
 x64/
+build/
