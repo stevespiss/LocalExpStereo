@@ -2,6 +2,7 @@
 
 #include <opencv2/core/core.hpp>
 #include <fstream>
+#include <stdio.h>
 
 namespace cvutils
 {
@@ -22,8 +23,7 @@ namespace cvutils
 		{
 			int w, h;
 			char buf[256];
-			FILE *f;
-			fopen_s(&f, filename.c_str(), "rb");
+			FILE *f = fopen(filename.c_str(), "rb");
 			if (f == NULL)
 			{
 				//wprintf(L"PFM file absent: %s\n\n", filename.c_str());
@@ -86,8 +86,7 @@ namespace cvutils
 			int width = image.cols;
 			int height = image.rows;
 
-			FILE *stream;
-			fopen_s(&stream, filename.c_str(), "wb");
+			FILE *stream = fopen(filename.c_str(), "wb");
 			if (stream == NULL)
 			{
 				printf("PFM file absent: %s\n\n", filename.c_str());
@@ -148,16 +147,16 @@ namespace cvutils
 			}
 			if (out.empty()) {
 				int s = 0;
-				ofs.write((const char*)(&s), sizeof(__int32));
+				ofs.write((const char*)(&s), sizeof(uint32_t));
 				return true;
 			}
-			__int32 rows = out.rows;
-			__int32 cols = out.cols;
-			__int32 type = out.type();
+			uint32_t rows = out.rows;
+			uint32_t cols = out.cols;
+			uint32_t type = out.type();
 
-			ofs.write((const char*)(&rows), sizeof(__int32));
-			ofs.write((const char*)(&cols), sizeof(__int32));
-			ofs.write((const char*)(&type), sizeof(__int32));
+			ofs.write((const char*)(&rows), sizeof(uint32_t));
+			ofs.write((const char*)(&cols), sizeof(uint32_t));
+			ofs.write((const char*)(&type), sizeof(uint32_t));
 			ofs.write((const char*)(out.data), out.elemSize() * out.total());
 
 			return true;
@@ -178,13 +177,13 @@ namespace cvutils
 
 			if (readHeader)
 			{
-				__int32 rows, cols, type;
-				ifs.read((char*)(&rows), sizeof(__int32));
+				uint32_t rows, cols, type;
+				ifs.read((char*)(&rows), sizeof(uint32_t));
 				if (rows == 0) {
 					return true;
 				}
-				ifs.read((char*)(&cols), sizeof(__int32));
-				ifs.read((char*)(&type), sizeof(__int32));
+				ifs.read((char*)(&cols), sizeof(uint32_t));
+				ifs.read((char*)(&type), sizeof(uint32_t));
 
 				in_mat.release();
 				in_mat.create(rows, cols, type);

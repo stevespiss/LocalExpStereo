@@ -9,7 +9,8 @@
 #include "ArgsParser.h"
 #include "CostVolumeEnergy.h"
 #include "Utilities.hpp"
-#include <direct.h>
+#include <filesystem>
+/* #include <direct.h> */
 
 struct Options
 {
@@ -286,7 +287,9 @@ void MidV2(const std::string inputDir, const std::string outputDir, const Option
 	param.lambda = options.smooth_weight;
 
 	{
-		_mkdir((outputDir + "debug").c_str());
+        /* fi */
+        std::filesystem::create_directory((outputDir + "debug").c_str());
+		/* _mkdir((outputDir + "debug").c_str()); */
 
 		Evaluator *eval = new Evaluator(dispGT, nonocc, 255.0f / (maxdisp), "result", outputDir + "debug\\");
 		eval->setPrecision(calib.gt_prec);
@@ -307,9 +310,9 @@ void MidV2(const std::string inputDir, const std::string outputDir, const Option
 
 		cv::Mat labeling, rawdisp;
 		if (options.doDual)
-			stereo.run(options.iterations, { 0, 1 }, options.pmIterations, labeling, rawdisp);
+			stereo.run(options.iterations, labeling, rawdisp, { 0, 1 }, options.pmIterations);
 		else
-			stereo.run(options.iterations, { 0 }, options.pmIterations, labeling, rawdisp);
+			stereo.run(options.iterations, labeling, rawdisp, { 0 }, options.pmIterations);
 
 		delete prop1;
 		delete prop2;
@@ -375,7 +378,8 @@ void MidV3(const std::string inputDir, const std::string outputDir, const Option
 
 
 	{
-		_mkdir((outputDir + "debug").c_str());
+        std::filesystem::create_directory((outputDir + "debug").c_str());
+		/* _mkdir((outputDir + "debug").c_str()); */
 
 		Evaluator *eval = new Evaluator(dispGT, nonocc, 255.0f / (maxdisp), "result", outputDir + "debug\\");
 		eval->setPrecision(-1);
@@ -398,9 +402,9 @@ void MidV3(const std::string inputDir, const std::string outputDir, const Option
 
 		cv::Mat labeling, rawdisp;
 		if (options.doDual)
-			stereo.run(options.iterations, { 0, 1 }, options.pmIterations, labeling, rawdisp);
+			stereo.run(options.iterations, labeling, rawdisp, { 0, 1 }, options.pmIterations);
 		else
-			stereo.run(options.iterations, { 0 }, options.pmIterations, labeling, rawdisp);
+			stereo.run(options.iterations, labeling, rawdisp, { 0 }, options.pmIterations);
 
 		delete prop1;
 		delete prop2;
@@ -453,7 +457,10 @@ int main(int argc, const char** args)
 		omp_set_num_threads(options.threadNum);
 
 	if (options.outputDir.length())
-		_mkdir((options.outputDir).c_str());
+    {
+        std::filesystem::create_directory((options.outputDir).c_str());
+        /* _mkdir((options.outputDir).c_str()); */
+    }
 
 	printf("\n\n");
 

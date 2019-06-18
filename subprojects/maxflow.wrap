@@ -1,0 +1,10 @@
+[wrap-file]
+directory = maxflow-v3.04.src
+
+source_url = http://pub.ist.ac.at/~vnk/software/maxflow-v3.04.src.zip
+source_filename = maxflow-v3.04.src.zip
+source_hash = 1edf646f40674b2e89e113067ea825976eaff61c5295958820132895e4c6258b
+
+patch_url = file:///home/stefan/Documents/Masterthesis/DifferentProjectSources/LocalExpStereo/subprojects/maxflow_patchfiles/maxflow-v3.04.src-patch.zip
+patch_filename = maxflow-v3.04.src-patch.zip
+patch_hash = 18ccee8c5cad1814d5ff2c21755d08644bc9ac43f785a8497ffbb1c8e2e5f126
